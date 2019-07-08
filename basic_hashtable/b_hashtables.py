@@ -58,7 +58,14 @@ def hash_table_remove(hash_table, key):
 # Returns the value stored at the key and None if the key is unoccupied
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    # hash the key
+    hashed_key = hash(key, hash_table.capacity)
+    # check to see whether the current storage contains the key
+    if not hash_table.storage[hashed_key]:
+        return None
+    # otherwise return the value
+    else:
+        return hash_table.storage[hashed_key]
 
 
 def Testing():
