@@ -28,21 +28,19 @@ def hash(string, max):
         hash = (hash * 33) + ord(char)
     return hash % max
 
-# turn the key into a index where values are stored in an array
-
 # '''
-# Fill this in.
-
-# If you are overwriting a value with a different key, print a warning.
+# Inserts a key:value pair and produces warnings where collisions occur
 # '''
 def hash_table_insert(hash_table, key, value):
+    # create a new instance of the Pair class
+    pair = Pair(key, value)
     # hash the key
-    hashed_key = self.hash(key)
+    hashed_key = hash(key, hash_table.capacity)
     # check to see whether the current storage already contains a value at that index
-    if self.storage[hashed_key]:
+    if hash_table.storage[hashed_key]:
         print(f"WARNING: This insertion will overwrite an existing key:value")
     # add the value at the hash index
-    self.storage[hashed_key] = value
+    hash_table.storage[hashed_key] = pair.value
 
 # '''
 # Fill this in.
