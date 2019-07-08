@@ -33,9 +33,9 @@ def hash(string, max):
 # '''
 def hash_table_insert(hash_table, key, value):
     # create a new instance of the Pair class
-    pair = Pair(key, value)
+    new_pair = Pair(key, value)
     # hash the key
-    hashed_key = hash(key, hash_table.capacity)
+    hashed_key = hash(new_pair.key, hash_table.capacity)
     # check to see whether the current storage already contains a key at that index
     if hash_table.storage[hashed_key]:
         print(f"WARNING: This insertion will overwrite an existing key with {value}")
