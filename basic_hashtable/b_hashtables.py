@@ -11,7 +11,6 @@ class Pair:
 
 # '''
 # Basic hash table
-# Fill this in.  All storage values should be initialized to None
 # '''
 class BasicHashTable:
     def __init__(self, capacity):
@@ -22,11 +21,13 @@ class BasicHashTable:
 
 
 # '''
-# Fill this in.
-# Research and implement the djb2 hash function
+# djb2 hash function
 # '''
-def hash(string, max):
-    pass
+def hash(string):
+    hash = 5381
+    for char in string:
+        hash = (hash * 33) + ord(char)
+    return hash
 
 
 # '''
