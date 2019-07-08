@@ -36,8 +36,13 @@ def hash(string, max):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    hashed_
-
+    # hash the key
+    hashed_key = self.hash(key)
+    # check to see whether the current storage already contains a value at that index
+    if self.storage[hashed_key]:
+        print(f"WARNING: This insertion will overwrite an existing key:value")
+    # add the value at the hash index
+    self.storage[hashed_key] = value
 
 # '''
 # Fill this in.
