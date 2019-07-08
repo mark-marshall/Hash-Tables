@@ -16,19 +16,19 @@ class BasicHashTable:
     def __init__(self, capacity):
         # max length of hash table
         self.capacity = capacity
-        # underlying data sructure
+        # underlying data structure for storing values
         self.storage = [None] * capacity
-
 
 # '''
 # djb2 hash function
 # '''
-def hash(string):
+def hash(string, max):
     hash = 5381
     for char in string:
         hash = (hash * 33) + ord(char)
-    return hash
+    return hash % max
 
+# turn the key into a index where values are stored in an array
 
 # '''
 # Fill this in.
@@ -36,7 +36,7 @@ def hash(string):
 # If you are overwriting a value with a different key, print a warning.
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    hashed_
 
 
 # '''
