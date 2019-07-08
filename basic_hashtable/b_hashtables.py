@@ -29,32 +29,33 @@ def hash(string, max):
     return hash % max
 
 # '''
-# Inserts a key:value pair and produces warnings where collisions occur
+# Inserts a key:value pair and returns warning where collisions occur
 # '''
 def hash_table_insert(hash_table, key, value):
     # create a new instance of the Pair class
     pair = Pair(key, value)
     # hash the key
     hashed_key = hash(key, hash_table.capacity)
-    # check to see whether the current storage already contains a value at that index
+    # check to see whether the current storage already contains a key at that index
     if hash_table.storage[hashed_key]:
         print(f"WARNING: This insertion will overwrite an existing key:value")
     # add the value at the hash index
     hash_table.storage[hashed_key] = pair.value
 
 # '''
-# Fill this in.
-
-# If you try to remove a value that isn't there, print a warning.
+# Removes a key:value pair and returns warning where key doesn't exist
 # '''
 def hash_table_remove(hash_table, key):
-    pass
-
+    # hash the key
+    hashed_key = hash(key, hash_table.capacity)
+    # check to see whether the current storage contains the key
+    if not hash_table.storage[hashed_key]:
+        print(f"WARNING: The key {key} does not yet exist in the table")
+    else:
+        hash_table.storage[hashed_key] = None
 
 # '''
-# Fill this in.
-
-# Should return None if the key is not found.
+# Returns the value stored at the key and None if the key is unoccupied
 # '''
 def hash_table_retrieve(hash_table, key):
     pass
