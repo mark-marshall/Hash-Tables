@@ -25,7 +25,7 @@ class BasicHashTable:
 def hash(string, max):
     hash = 5381
     for char in string:
-        hash = (hash * 33) + ord(char)
+        hash = ((hash << 5) + hash) + ord(char)
     return hash % max
 
 # '''
