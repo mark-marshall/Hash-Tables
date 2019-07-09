@@ -11,13 +11,14 @@ class LinkedPair:
 
 
 # '''
-# Fill this in
-
 # Resizing hash table
 # '''
 class HashTable:
     def __init__(self, capacity):
-        pass
+        # max length of hash table
+        self.capacity = capacity
+        # underlying data structure for storing values
+        self.storage = [None] * capacity
 
 
 # '''
