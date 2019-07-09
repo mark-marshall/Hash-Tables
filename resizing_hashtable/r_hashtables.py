@@ -41,7 +41,7 @@ def hash_table_insert(hash_table, key, value):
     hashed_key = hash(new_pair.key, hash_table.capacity)
     # check to see if the current storage already contains a LL or LP
     if hash_table.storage[hashed_key]:
-        # loop through the linked pairs until we get to the one with none at the end
+        # loop through the linked pairs until we get to a prex-existing key or the end pair
         current_pair = hash_table.storage[hashed_key]
         while current_pair.next:
             if current_pair.key == key:
@@ -59,9 +59,6 @@ def hash_table_insert(hash_table, key, value):
         hash_table.storage[hashed_key] = new_pair
 
 
-# need to see if the key exists first and overwrite the value if it does
-
-
 # '''
 # Removes a key:value pair and returns warning where key doesn't exist
 # '''
@@ -77,18 +74,28 @@ def hash_table_remove(hash_table, key):
         # loop through the pairs until we find the key
         current_pair = hash_table.storage[hashed_key]
         # check to see if its the only pair in that pos
-        if current_pair.key == key and current_pair.next == None:
-            hash_table.storage[hashed_key] = None
+        if current_pair.key == key:
+            if current_pair.next == None:
+                hash_table.storage[hashed_key] = None
+            else:
+                hash_table.storage[hashed_key] = current_pair.next
             return None
         # loop through the pairs otherwie
         while current_pair.next:
             if current_pair.next == key:
                 # remove the pair and reconnect the prev pair to the nodes next pair
                 next_pair = current_pair.next
-                current_pair.next = next_pair.next
+                if next_pair.next:
+                    current_pair.next = next_pair.next
+                else:
+                    current_pair.next = None
                 return None
-        # if the key is not found, return the no-find error
-        print(f"WARNING: The key: {key} does not exist in the hash table")
+            # set new next pair as current_pair
+            current_pair = current_pair.next
+        if current_pair.key == key:
+            current_pair.key = None
+        else:
+            print(f"WARNING: The key: {key} does not exist in the hash table")
 
 # '''
 # Retrieves a key:value pair and returns None if the key is not found
@@ -145,7 +152,6 @@ def Testing():
     print(hash_table_retrieve(ht, "line_3"))
 
     old_capacity = len(ht.storage)
-    print(ht.storage)
     ht = hash_table_resize(ht)
     new_capacity = len(ht.storage)
 
