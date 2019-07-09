@@ -56,7 +56,29 @@ def hash_table_insert(hash_table, key, value):
 # Removes a key:value pair and returns warning where key doesn't exist
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    # hash the key
+    hashed_key = hash(key, hash_table.capacity)
+    # set the index of the key to be found
+    proposed_index = hash_table.storage[hashed_key]
+    # see if there's anything at the proposed index
+    if not proposed_index:
+        print(f"WARNING: The key: {key} does not exist in the hash table")
+    else:
+        # loop through the pairs until we find the key
+        current_pair = hash_table.storage[hashed_key]
+        # check to see if its the only pair in that pos
+        if current_pair.key == key and current_pair.next = None:
+            hash_table.storage[hashed_key] = None
+            return None
+        # loop through the pairs otherwie
+        while current_pair.next:
+            if current_pair.next == key:
+                # remove the pair and reconnect the prev pair to the nodes next pair
+                next_pair = current_pair.next
+                current_pair.next = next_pair.next
+                return None
+        # if the key is not found, return the no-find error
+        print(f"WARNING: The key: {key} does not exist in the hash table")
 
 # '''
 # Retrieves a key:value pair and returns None if the key is not found
