@@ -90,7 +90,7 @@ def hash_table_retrieve(hash_table, key):
     proposed_index = hash_table.storage[hashed_key]
     # see if there's anything at the proposed index
     if not proposed_index:
-        print(f"WARNING: The key: {key} does not exist in the hash table")
+        return None
     else:
         # loop through the pairs until we find the key
         current_pair = hash_table.storage[hashed_key]
@@ -99,14 +99,24 @@ def hash_table_retrieve(hash_table, key):
                 return current_pair.value
             current_pair = current_pair.next
         # if the key is not found, return the no-find error
-        print(f"WARNING: The key: {key} does not exist in the hash table")
+        return None
 
 
 # '''
-# Fill this in
+# Doubles the capacity of the hash table
 # '''
 def hash_table_resize(hash_table):
-    pass
+    # set new capacity to double
+    new_capacity = hash_table.capacity * 2
+    # initialize a new list for storage
+    new_storage = [None] * new_capacity
+    # copy over the elements
+    for i in range(hash_table.capacity):
+        new_storage[i] = hash_table.storage[i] 
+    # set the new storage and capacity
+    hash_table.storage = new_storage
+    hash_table.capacity = new_capacity
+
 
 
 def Testing():
