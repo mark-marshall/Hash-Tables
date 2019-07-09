@@ -32,12 +32,24 @@ def hash(string, max):
 
 
 # '''
-# Fill this in.
-
-# Hint: Used the LL to handle collisions
+# Inserts a key:value pair as a linked pair in the list
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    # create a new instance of the LinedPair class
+    new_pair = LinkedPair(key, value)
+    # hash the key
+    hashed_key = hash(new_pair.key, hash_table.capacity)
+    # check to see if the current storage aalready contains a LL or LP
+    if hash_table.storage[hashed_key]:
+        # loop through the linked pairs until we get to the one with none at the end
+        current_pair = hash_table.storage[hashed_key]
+        while current_pair.next:
+            # set new next pair as current_pair
+            current_pair = current_pair.next
+        # add the linked pair as the next item
+        current_pair.next = new_pair
+    else:
+        hash_table.storage[hashed_key] = new_pair
 
 
 # '''
