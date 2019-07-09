@@ -41,7 +41,7 @@ def hash_table_insert(hash_table, key, value):
     hashed_key = hash(new_pair.key, hash_table.capacity)
     # check to see if the current storage already contains a LL or LP
     if hash_table.storage[hashed_key]:
-        # loop through the linked pairs until we get to a prex-existing key or the end pair
+        # loop through the linked pairs until we get to a pre-existing key or the end pair
         current_pair = hash_table.storage[hashed_key]
         while current_pair.next:
             if current_pair.key == key:
@@ -73,26 +73,33 @@ def hash_table_remove(hash_table, key):
     else:
         # loop through the pairs until we find the key
         current_pair = hash_table.storage[hashed_key]
-        # check to see if its the only pair in that pos
+        # check to see if its the first pair in the list
         if current_pair.key == key:
+            # check to see if its the only pair at that index
             if current_pair.next == None:
                 hash_table.storage[hashed_key] = None
+            # set the new starter pair if it's not the only pair
             else:
                 hash_table.storage[hashed_key] = current_pair.next
             return None
-        # loop through the pairs otherwie
+        # loop through the pairs if its not the first pair
         while current_pair.next:
+            # check to see if the target pair is at the next position
             if current_pair.next == key:
-                # remove the pair and reconnect the prev pair to the nodes next pair
-                next_pair = current_pair.next
-                if next_pair.next:
-                    current_pair.next = next_pair.next
+                # set the target pair to a variable
+                target_pair = current_pair.next
+                # if the target pair has a next pair, hook that up to the current pair
+                if target_pair.next:
+                    current_pair.next = target_pair.next
+                # otherwise, set the current pairs next to None
                 else:
                     current_pair.next = None
                 return None
-            # set new next pair as current_pair
+            # set the next pair as current_pair.next to continue to the loop
             current_pair = current_pair.next
+        # check to see if the last pair in the list matches the key
         if current_pair.key == key:
+            # set the key to zero so its effectively removed from future searches
             current_pair.key = None
         else:
             print(f"WARNING: The key: {key} does not exist in the hash table")
