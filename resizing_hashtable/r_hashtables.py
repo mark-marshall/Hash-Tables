@@ -67,7 +67,7 @@ def hash_table_remove(hash_table, key):
         # loop through the pairs until we find the key
         current_pair = hash_table.storage[hashed_key]
         # check to see if its the only pair in that pos
-        if current_pair.key == key and current_pair.next = None:
+        if current_pair.key == key and current_pair.next == None:
             hash_table.storage[hashed_key] = None
             return None
         # loop through the pairs otherwie
@@ -98,8 +98,12 @@ def hash_table_retrieve(hash_table, key):
             if current_pair.key == key:
                 return current_pair.value
             current_pair = current_pair.next
-        # if the key is not found, return the no-find error
-        return None
+        # check to see if its the last pair in the list
+        if current_pair.key == key:
+            return current_pair.value
+        # return none if the key is not found
+        else:
+            return None
 
 
 # '''
@@ -111,13 +115,13 @@ def hash_table_resize(hash_table):
     # initialize a new list for storage
     new_storage = [None] * new_capacity
     # copy over the elements
-    for i in range(hash_table.capacity):
+    for i in range(len(hash_table.storage)):
         new_storage[i] = hash_table.storage[i] 
     # set the new storage and capacity
     hash_table.storage = new_storage
     hash_table.capacity = new_capacity
-
-
+    # return the updated hash table
+    return hash_table
 
 def Testing():
     ht = HashTable(2)
@@ -131,11 +135,12 @@ def Testing():
     print(hash_table_retrieve(ht, "line_3"))
 
     old_capacity = len(ht.storage)
+    print(ht.storage)
     ht = hash_table_resize(ht)
     new_capacity = len(ht.storage)
 
     print("Resized hash table from " + str(old_capacity)
-          + " to " + str(new_capacity) + ".")
+         + " to " + str(new_capacity) + ".")
 
 
 Testing()
