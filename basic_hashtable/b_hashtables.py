@@ -40,7 +40,7 @@ def hash_table_insert(hash_table, key, value):
     if hash_table.storage[hashed_key]:
         print(f"WARNING: This insertion will overwrite an existing key with {value}")
     # add the value at the hash index
-    hash_table.storage[hashed_key] = new_pair.value
+    hash_table.storage[hashed_key] = new_pair
 
 # '''
 # Removes a key:value pair and returns warning where key doesn't exist
@@ -65,7 +65,7 @@ def hash_table_retrieve(hash_table, key):
         return None
     # otherwise return the value
     else:
-        return hash_table.storage[hashed_key]
+        return hash_table.storage[hashed_key].value
 
 
 def Testing():
