@@ -39,7 +39,7 @@ def hash_table_insert(hash_table, key, value):
     new_pair = LinkedPair(key, value)
     # hash the key
     hashed_key = hash(new_pair.key, hash_table.capacity)
-    # check to see if the current storage aalready contains a LL or LP
+    # check to see if the current storage already contains a LL or LP
     if hash_table.storage[hashed_key]:
         # loop through the linked pairs until we get to the one with none at the end
         current_pair = hash_table.storage[hashed_key]
@@ -53,21 +53,31 @@ def hash_table_insert(hash_table, key, value):
 
 
 # '''
-# Fill this in.
-
-# If you try to remove a value that isn't there, print a warning.
+# Removes a key:value pair and returns warning where key doesn't exist
 # '''
 def hash_table_remove(hash_table, key):
     pass
 
-
 # '''
-# Fill this in.
-
-# Should return None if the key is not found.
+# Retrieves a key:value pair and returns None if the key is not found
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    # hash the key
+    hashed_key = hash(key, hash_table.capacity)
+    # set the index of the key to be found
+    proposed_index = hash_table.storage[hashed_key]
+    # see if there's anything at the proposed index
+    if not proposed_index:
+        print(f"WARNING: The key: {key} does not exist in the hash table")
+    else:
+        # loop through the pairs until we find the key
+        current_pair = hash_table.storage[hashed_key]
+        while current_pair.next:
+            if current_pair.key == key:
+                return current_pair.value
+            current_pair = current_pair.next
+        # if the key is not found, return the no-find error
+        print(f"WARNING: The key: {key} does not exist in the hash table")
 
 
 # '''
