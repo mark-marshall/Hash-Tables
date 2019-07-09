@@ -44,12 +44,22 @@ def hash_table_insert(hash_table, key, value):
         # loop through the linked pairs until we get to the one with none at the end
         current_pair = hash_table.storage[hashed_key]
         while current_pair.next:
+            if current_pair.key == key:
+                current_pair.value = value
+                return None
             # set new next pair as current_pair
             current_pair = current_pair.next
+        # check to see if the last pair in the list matches the key
+        if current_pair.key == key:
+            current_pair.value = value
         # add the linked pair as the next item
-        current_pair.next = new_pair
+        else:
+            current_pair.next = new_pair
     else:
         hash_table.storage[hashed_key] = new_pair
+
+
+# need to see if the key exists first and overwrite the value if it does
 
 
 # '''
