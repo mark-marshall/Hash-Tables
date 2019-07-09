@@ -113,7 +113,7 @@ def hash_table_retrieve(hash_table, key):
     # set the index of the key to be found
     proposed_index = hash_table.storage[hashed_key]
     # see if there's anything at the proposed index
-    if not proposed_index:
+    if proposed_index is None:
         return None
     else:
         # loop through the pairs until we find the key
@@ -134,16 +134,29 @@ def hash_table_retrieve(hash_table, key):
 # Doubles the capacity of the hash table
 # '''
 def hash_table_resize(hash_table):
+    # save the original hash_table storage
+    original_storage = hash_table.storage
     # set new capacity to double
-    new_capacity = hash_table.capacity * 2
-    # initialize a new list for storage
-    new_storage = [None] * new_capacity
+    hash_table.capacity = hash_table.capacity * 2
+    # initialize a new list for the storage
+    hash_table.storage = [None] * hash_table.capacity
     # copy over the elements
-    for i in range(len(hash_table.storage)):
-        new_storage[i] = hash_table.storage[i] 
-    # set the new storage and capacity
-    hash_table.storage = new_storage
-    hash_table.capacity = new_capacity
+    for i in range(len(original_storage)):
+        # save the first pair
+        first_pair = original_storage[i]
+        # check to see whether the index has any content
+        if not first_pair:
+            continue
+        # loop over all pairs and all nested pairs and use the insert method
+        if first_pair.next:
+            cur_pair = original_storage[i]
+            while cur_pair.next:
+                hash_table_insert(hash_table, cur_pair.key, cur_pair.value)
+                cur_pair = cur_pair.next
+            # insert the last pair in the list
+            hash_table_insert(hash_table, cur_pair.key, cur_pair.value)
+        else:
+            hash_table_insert(hash_table, first_pair.key, first_pair.value)
     # return the updated hash table
     return hash_table
 
